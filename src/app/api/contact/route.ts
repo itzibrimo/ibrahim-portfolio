@@ -80,13 +80,13 @@ async function sendNotification(data: {
   console.log(`[contact] sendNotification: apiKey set=${!!apiKey}, recipient=${to?.replace(/(?<=.).(?=.*@)/g, '*')}`);
 
   if (!apiKey || !to) {
-    console.error("[contact] Resend NOT configured");
+    console.error("[contact] Resend NOT configured (check API_KEY and NOTIFICATION_EMAIL env vars)");
     throw new Error("Resend not configured");
   }
 
   const { Resend } = await import("resend");
   const resend = new Resend(apiKey);
-
+  
   // Plain-text body — user content never goes into HTML.
   const text = [
     "New portfolio contact form submission",
@@ -106,22 +106,36 @@ async function sendNotification(data: {
     <pre style="white-space:pre-wrap">${escapeHtml(data.message)}</pre>
   `;
 
+  // Create email request object for logging
+  const emailPayload = {
+    from: "Portfolio Contact <onboarding@resend.dev>",
+    to,
+    replyTo: data.email,
+    subject: `Portfolio contact from ${data.name}`,
+    text,
+    html,
+  };
+  
+  console.log("[contact] Preparing to send Resend email to:", emailPayload.to);
+
   try {
-    const response = await resend.emails.send({
-      from: "Portfolio Contact <onboarding@resend.dev>",
-      to,
-      replyTo: data.email,
-      subject: `Portfolio contact from ${data.name}`,
-      text,
-      html,
-    });
+    const response = await resend.emails.send(emailPayload);
     
+    // Log the full response object to help diagnose 'undefined' id
+    console.log("[contact] Resend API response raw:", JSON.stringify(response));
+
+    if (response.error) {
+        console.error("[contact] Resend API returned error object:", response.error);
+        throw new Error(`Resend API refused: ${response.error.message}`);
+    }
+
     console.log("[contact] Resend request initiated successfully", { id: response.data?.id });
   } catch (error) {
     console.error("[contact] Resend request FAILED", error);
     throw error;
   }
 }
+
 
 // ── Handler ───────────────────────────────────────────────────────────────
 
