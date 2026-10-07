@@ -77,9 +77,11 @@ async function sendNotification(data: {
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.CONTACT_NOTIFICATION_EMAIL;
 
+  console.log(`[contact] sendNotification: apiKey set=${!!apiKey}, recipient=${to?.replace(/(?<=.).(?=.*@)/g, '*')}`);
+
   if (!apiKey || !to) {
-    console.log("[contact] Resend not configured — no email sent");
-    return;
+    console.error("[contact] Resend NOT configured");
+    throw new Error("Resend not configured");
   }
 
   const { Resend } = await import("resend");
@@ -104,14 +106,21 @@ async function sendNotification(data: {
     <pre style="white-space:pre-wrap">${escapeHtml(data.message)}</pre>
   `;
 
-  await resend.emails.send({
-    from: "Portfolio Contact <onboarding@resend.dev>",
-    to,
-    replyTo: data.email,
-    subject: `Portfolio contact from ${data.name}`,
-    text,
-    html,
-  });
+  try {
+    const response = await resend.emails.send({
+      from: "Portfolio Contact <onboarding@resend.dev>",
+      to,
+      replyTo: data.email,
+      subject: `Portfolio contact from ${data.name}`,
+      text,
+      html,
+    });
+    
+    console.log("[contact] Resend request initiated successfully", { id: response.data?.id });
+  } catch (error) {
+    console.error("[contact] Resend request FAILED", error);
+    throw error;
+  }
 }
 
 // ── Handler ───────────────────────────────────────────────────────────────
@@ -182,30 +191,35 @@ export async function POST(request: NextRequest) {
     message: sanitizeMultiline(data.message, CONTACT_LIMITS.message),
   };
 
-  // Persist + notify — both can fail independently
-  const [storeResult, notifyResult] = await Promise.allSettled([
-    storeSubmission(clean),
-    sendNotification(clean),
-  ]);
-
-  // Persistence is the source of truth — if Firestore fails, report an error
-  // instead of falsely claiming delivery.
-  if (storeResult.status === "rejected") {
-    console.error("[contact] Firestore error:", storeResult.reason);
+  // Persist + notify — both can independently fail.
+  // 1. Persistence is the source of truth.
+  try {
+    await storeSubmission(clean);
+  } catch (error) {
+    console.error("[contact] Firestore persistence FAILED", error);
     return NextResponse.json(
       { success: false, error: "Could not save your message. Please try again later." },
       { status: 503, headers: securityHeaders }
     );
   }
-  if (notifyResult.status === "rejected") {
-    // Submission is safely stored; the notification email can be retried.
-    console.error("[contact] Resend error:", notifyResult.reason);
+
+  // 2. Notification is secondary but required for timely response.
+  let emailSent = false;
+  try {
+    await sendNotification(clean);
+    emailSent = true;
+  } catch (error) {
+    // Submission is safely stored; email failed.
+    console.error("[contact] Resend email notification FAILED", error);
   }
 
   return NextResponse.json(
     {
       success: true,
-      message: "Message received. I'll get back to you soon.",
+      emailSent,
+      message: emailSent
+        ? "Message received. I'll get back to you soon."
+        : "Message saved, but email notification failed. Please try again later if urgent.",
     },
     { status: 200, headers: securityHeaders }
   );
