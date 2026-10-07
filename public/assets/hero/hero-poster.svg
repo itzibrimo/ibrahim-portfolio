@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <rect width="1920" height="1080" fill="#0b0c0e"/>
+  <g stroke="#f5f5f2" stroke-opacity="0.05" stroke-width="1">
+    <path d="M0 270h1920M0 540h1920M0 810h1920"/>
+    <path d="M480 0v1080M960 0v1080M1440 0v1080"/>
+  </g>
+  <rect x="880" y="460" width="160" height="160" fill="none" stroke="#f5f5f2" stroke-opacity="0.18"/>
+  <rect x="920" y="500" width="80" height="80" fill="none" stroke="#6e8bf2" stroke-opacity="0.4"/>
+  <text x="960" y="560" font-family="monospace" font-size="14" fill="#a5a5a0" fill-opacity="0.5" text-anchor="middle" dominant-baseline="middle">MCU</text>
+</svg>
