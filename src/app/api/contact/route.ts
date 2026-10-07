@@ -108,7 +108,7 @@ async function sendNotification(data: {
 
   // Create email request object for logging
   const emailPayload = {
-    from: "Portfolio Contact <onboarding@resend.dev>",
+    from: "Ibrahim Sbouai — Portfolio <contact@ibrahimportfolio.me>",
     to,
     replyTo: data.email,
     subject: `Portfolio contact from ${data.name}`,
