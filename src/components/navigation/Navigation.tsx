@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { config } from "@/data/config";
 import { useTheme } from "@/components/layout/ThemeProvider";
@@ -135,13 +136,12 @@ export function Navigation() {
             >
               {icon}
             </button>
-            <a
-              href={config.cvPath}
-              download="CV_Ibrahim_Sbouai.pdf"
+            <Link
+              href="/cv"
               className="text-tech-label text-[0.65rem] uppercase text-muted hover:text-foreground transition-colors duration-300"
             >
-              CV
-            </a>
+              View CV
+            </Link>
           </div>
 
           {/* Mobile toggle */}
@@ -211,13 +211,13 @@ export function Navigation() {
                 >
                   {icon}
                 </button>
-                <a
-                  href={config.cvPath}
-                  download="CV_Ibrahim_Sbouai.pdf"
+                <Link
+                  href="/cv"
                   className="text-tech-label text-[0.7rem] uppercase text-muted hover:text-foreground transition-colors"
+                  onClick={() => setIsOpen(false)}
                 >
-                  CV
-                </a>
+                  View CV
+                </Link>
               </motion.div>
             </div>
           </motion.div>

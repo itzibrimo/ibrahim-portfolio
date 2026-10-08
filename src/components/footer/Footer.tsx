@@ -83,11 +83,20 @@ export function Footer() {
               )}
               <li>
                 <a
-                  href={config.cvPath}
-                  download="CV_Ibrahim_Sbouai.pdf"
+                  href="/cv"
                   className="text-sm text-muted hover:text-foreground transition-colors duration-200"
                 >
-                  Download CV
+                  View CV
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/itzibrimo/ibrahim-portfolio"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-muted hover:text-foreground transition-colors duration-200"
+                >
+                  Source Code
                 </a>
               </li>
             </ul>

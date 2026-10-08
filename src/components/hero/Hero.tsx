@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { config } from "@/data/config";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -143,16 +144,15 @@ export function Hero() {
                       <path d="M1.5 8.5L8.5 1.5M8.5 1.5H3M8.5 1.5V7" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </a>
-                  <a
-                    href={config.cvPath}
-                    download="CV_Ibrahim_Sbouai.pdf"
+                  <Link
+                    href="/cv"
                     className="btn-base border border-border text-muted hover:border-border-strong hover:text-foreground text-[0.7rem] tracking-[0.12em] inline-flex items-center gap-2"
                   >
-                    Download CV
-                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                    View CV
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true" className="rotate-90">
                       <path d="M5 1v6M2 5l3 3 3-3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
                     </svg>
-                  </a>
+                  </Link>
                 </motion.div>
               </div>
 
