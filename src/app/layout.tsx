@@ -121,9 +121,9 @@ const personSchema = {
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly< {
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html
       lang="en"
@@ -131,7 +131,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-screen">
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>{children}</ThemeProvider> <Analytics />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
