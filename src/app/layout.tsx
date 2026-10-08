@@ -36,6 +36,12 @@ export const metadata: Metadata = {
     default: "Ibrahim Sbouai \u2014 Computer Engineering Student",
     template: "%s \u2014 Ibrahim Sbouai",
   },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
+  manifest: "/site.webmanifest",
   description:
     "Portfolio of Ibrahim Sbouai, a Computer Engineering student specializing in Embedded Systems & IoT \u2014 across software, embedded systems, networks and industrial automation.",
   keywords: [
