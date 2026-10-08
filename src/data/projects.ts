@@ -127,7 +127,9 @@ export const projects: Project[] = [
     context: "Personal project",
     visual: "web",
     image: "/assets/projectnames/portfoliobrahim.png",
-    links: {},
+    links: {
+      source: "https://github.com/itzibrimo/ibrahim-portfolio",
+    },
   },
 ];
 
