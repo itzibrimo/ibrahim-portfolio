@@ -37,6 +37,7 @@ const nextConfig: NextConfig = {
               "img-src 'self' data: blob:",
               "media-src 'self' blob:",
               "connect-src 'self'",
+              "worker-src 'self' blob:",
               "object-src 'none'",
               "base-uri 'self'",
               "frame-ancestors 'none'",
