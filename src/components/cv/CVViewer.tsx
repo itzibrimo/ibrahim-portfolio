@@ -19,7 +19,7 @@ export default function CVViewer() {
     import('react-pdf').then((mod) => {
       const { Document, Page, pdfjs } = mod;
       
-      // Use locally hosted worker from /pdf/
+      // Use locally hosted worker from /pdf/ directory
       pdfjs.GlobalWorkerOptions.workerSrc = "/pdf/pdf.worker.min.mjs";
       
       setPdfComponents({ Document, Page });
