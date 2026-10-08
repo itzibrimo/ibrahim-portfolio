@@ -136,12 +136,11 @@ export function Contact() {
                     </a>
                   )}
                   <a
-                    href={config.cvPath}
-                    download="CV_Ibrahim_Sbouai.pdf"
+                    href="/cv"
                     className="text-tech-label text-[0.7rem] uppercase text-foreground hover:text-accent transition-colors duration-200"
                     data-cursor="CV"
                   >
-                    Download CV
+                    View CV
                   </a>
                 </dd>
               </div>

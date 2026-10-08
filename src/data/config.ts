@@ -7,7 +7,7 @@ export const config = {
   specialization: "EMBEDDED SYSTEMS & IoT",
   email: "ibrahimsbouaai@gmail.com",
   phone: "+216 21 095 665",
-  linkedinUrl: "https://linkedin.com/in/ibrahimsbouai",
+  linkedinUrl: "https://www.linkedin.com/in/ibrahim-sbouai-78ba8a365",
   githubUrl: "https://github.com/itzibrimo",
   cvPath: "/cv/CV_Ibrahim_Sbouai.pdf",
   location: "Tunisia",

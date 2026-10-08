@@ -114,7 +114,7 @@ const personSchema = {
   ],
   sameAs: [
     "https://github.com/itzibrimo",
-    "https://linkedin.com/in/ibrahimsbouai",
+    "https://www.linkedin.com/in/ibrahim-sbouai-78ba8a365",
   ],
 };
 
