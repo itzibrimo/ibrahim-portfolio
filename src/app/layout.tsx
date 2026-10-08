@@ -28,7 +28,7 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["300", "400", "500"],
 });
 
-const SITE_URL = "https://ibrahimsbouai.com";
+const SITE_URL = "https://ibrahimportfolio.me";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
